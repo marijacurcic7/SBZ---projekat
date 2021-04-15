@@ -1,1 +1,1 @@
-# SBZ---projekat
+# SBZ projekat
