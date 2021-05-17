@@ -1,5 +1,7 @@
 package com.flowershop.model;
 
+import java.util.Set;
+
 public class Kupac {
 
     private String username;

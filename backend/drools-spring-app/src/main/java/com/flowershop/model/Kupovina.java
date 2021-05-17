@@ -1,7 +1,11 @@
 package com.flowershop.model;
 
+import java.util.Date;
+import java.util.Map;
+
 public class Kupovina {
 
+    private Long id;
     private Map<Proizvod, Integer> proizvodi;
     private Date datum;
     private double iznos;
@@ -9,7 +13,8 @@ public class Kupovina {
     public Kupovina() {
     }
 
-    public Kupovina(Map<Proizvod,Integer> proizvodi, Date datum, double iznos) {
+    public Kupovina(Long id, Map<Proizvod,Integer> proizvodi, Date datum, double iznos) {
+        this.id = id;
         this.proizvodi = proizvodi;
         this.datum = datum;
         this.iznos = iznos;
@@ -52,6 +57,15 @@ public class Kupovina {
     public Kupovina iznos(double iznos) {
         setIznos(iznos);
         return this;
+    }
+
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 
