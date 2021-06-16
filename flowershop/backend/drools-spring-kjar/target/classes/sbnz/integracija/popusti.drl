@@ -1,0 +1,31 @@
+package sbnz.integracija;
+
+import com.flowershop.model.Kupac;
+
+
+rule "13"
+    when
+        $k: Kupac( ukupnaCena >= 5000.0 && ukupnaCena < 10000.0 )
+    then
+        modify($k) { setPopust(10.0) }
+    	System.out.println("13: Popust 10% za kupca " + $k.getUsername());
+
+end
+
+rule "14"
+    when
+        $k: Kupac( ukupnaCena >= 10000.0 && ukupnaCena < 15000.0 )
+    then
+        modify($k) { setPopust(20.0) }
+    	System.out.println("14: Popust 20% za kupca " + $k.getUsername());
+
+end
+
+rule "15"
+    when
+        $k: Kupac( ukupnaCena > 15000.0 )
+    then
+        modify($k) { setPopust(30.0) }
+    	System.out.println("15: Popust 30% za kupca " + $k.getUsername());
+
+end

@@ -1,0 +1,23 @@
+package sbnz.integracija;
+
+import com.flowershop.model.Zahtev;
+import com.flowershop.model.Proizvodi;
+import com.flowershop.model.Proizvod;
+import com.flowershop.model.FilterProizvoda;
+
+
+
+// rule "Zahtev cena"
+//     when
+//         $fp: FilterProizvoda();
+//         $p: Proizvodi()
+//         proizvodiPoCeni( 0.0, 1000.0 )
+//     then
+//     	System.out.println("query test");
+
+// end
+
+// query proizvodiPoCeni(double min, double max)
+//     proizvod: Proizvod( cena >= min && cena <= max)
+// end
+

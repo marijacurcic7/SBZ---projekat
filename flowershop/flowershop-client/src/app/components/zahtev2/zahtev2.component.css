@@ -1,0 +1,32 @@
+mat-card {
+    width: 400px;
+    margin: 40px auto;
+    position: relative;
+    overflow: auto;
+    /* color: #90EE90; */
+    /* background-color: #90EE90; */
+    background-color: #2E8B57;
+
+}
+
+.button {
+    float: right;
+    background-color: #E9967A;
+}
+
+.full-width-input {
+    width: 100%;
+}
+
+section {
+    margin: 12px 0;
+}
+  
+mat-radio-button {
+    margin: 12px;
+}
+
+mat-radio-group {
+    display: flex; flex-direction: column;
+    margin: 15px 0;
+}

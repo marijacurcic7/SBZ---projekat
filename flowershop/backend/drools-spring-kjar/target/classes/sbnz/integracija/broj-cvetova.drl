@@ -1,0 +1,28 @@
+package rules
+
+import com.flowershop.model.Zahtev;
+import com.flowershop.model.Proizvodi;
+import com.flowershop.model.Proizvod;
+
+import java.util.List;
+
+
+rule "11"
+    when
+        $z: Zahtev( razlogKupovine == "pomen" )
+        $proizvodi: Proizvodi()
+        $parni: List() from collect(Proizvod( paranBrojCvetova() && tip != TipProizvoda.SAKSIJSKO_CVECE) from $proizvodi.getProizvodi())
+    then
+        modify( $proizvodi ) { setProizvodi($parni), setRed(1) }
+        System.out.println("11");
+end
+
+rule "12"
+    when
+        $z: Zahtev( razlogKupovine != "pomen" )
+        $proizvodi: Proizvodi()
+        $neparni: List() from collect(Proizvod( tip == TipProizvoda.SAKSIJSKO_CVECE || !paranBrojCvetova() ) from $proizvodi.getProizvodi())
+    then
+        modify( $proizvodi ) { setProizvodi($neparni), setRed(1) }
+        System.out.println("12");
+end

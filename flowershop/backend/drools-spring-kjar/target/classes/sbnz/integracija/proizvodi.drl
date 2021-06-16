@@ -1,0 +1,18 @@
+package rules
+
+import com.flowershop.model.Zahtev;
+import com.flowershop.model.Cvet;
+import com.flowershop.model.Proizvodi;
+import com.flowershop.model.VrsteCveca;
+
+
+// rule "20"
+//     when
+//         $z: Zahtev( $tip: tipProizvoda )
+//         $vrste: VrsteCveca( red == 2 )
+//         $proizvodi: Proizvodi( red == 1 )
+//         $preporuceniProizvodi: List() from collect(Proizvod( simbolika contains $razlog ) from $vrste.getCvece())
+//     then
+//         modify( $vrste ) { setCvece($preporuceneVrste), setRed(1) }
+//         System.out.println("1");
+// end

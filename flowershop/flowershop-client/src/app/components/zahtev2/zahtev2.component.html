@@ -1,0 +1,24 @@
+
+<div>
+    <mat-card>
+        <form [formGroup]="zahtevForm">
+
+            <mat-form-field appearance="fill">
+              <mat-label>Motiv</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let motiv of motivi" [value]="motiv">
+                  {{motiv}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+            <mat-error *ngIf=submitionError style="margin-bottom: 10px;">
+                Popunite obavezna polja!
+            </mat-error>
+            <button mat-raised-button color="primary" class="button">Nazad</button>
+
+            <button mat-raised-button color="primary" class="button">Dalje</button>
+
+        </form>
+    </mat-card>
+</div>
