@@ -116,7 +116,7 @@ public class Proizvod {
     public int ukupanBrojCvetova(){
         int i = 0;
         for(BrojVrsta bv : this.cvece){
-            i += bv.getBtoj();
+            i += bv.getBroj();
         }
         return i;
     }
@@ -124,7 +124,7 @@ public class Proizvod {
     public boolean paranBrojCvetova(){
         int i = 0;
         for(BrojVrsta bv : this.cvece){
-            i += bv.getBtoj();
+            i += bv.getBroj();
         }
         if(i%2 == 0) {
             return true;

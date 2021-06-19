@@ -24,16 +24,16 @@ public class BrojVrsta {
     private Cvet cvet;
 
     @Column(name = "broj", nullable = true)
-    private int btoj;
+    private int broj;
 
 
     public BrojVrsta() {
     }
 
-    public BrojVrsta(Long id, Cvet cvet, int btoj) {
+    public BrojVrsta(Long id, Cvet cvet, int broj) {
         this.id = id;
         this.cvet = cvet;
-        this.btoj = btoj;
+        this.broj = broj;
     }
 
     public Long getId() {
@@ -52,12 +52,12 @@ public class BrojVrsta {
         this.cvet = cvet;
     }
 
-    public int getBtoj() {
-        return this.btoj;
+    public int getBroj() {
+        return this.broj;
     }
 
-    public void setBtoj(int btoj) {
-        this.btoj = btoj;
+    public void setBroj(int broj) {
+        this.broj = broj;
     }
 
     

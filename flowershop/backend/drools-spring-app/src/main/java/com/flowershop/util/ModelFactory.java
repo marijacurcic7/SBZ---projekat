@@ -2,9 +2,12 @@ package com.flowershop.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import com.flowershop.model.BrojVrsta;
 import com.flowershop.model.Cvet;
 import com.flowershop.model.Kupac;
 import com.flowershop.model.Proizvod;
@@ -108,7 +111,7 @@ public class ModelFactory {
 
         Cvet c1 = new Cvet(1L, "ruza", "opis", "bela", simbolika, Cvet.Miris.BLAG, sezone2, tp1);
 		Cvet c2 = new Cvet(2L, "kala", "opis", "roze", simbolika2, Cvet.Miris.BLAG, sezone2, tp1);
-		Cvet c3 = new Cvet(2L, "ruza", "opis", "crvena", simbolika2, Cvet.Miris.BLAG, sezone2, tp1);
+		Cvet c3 = new Cvet(3L, "ruza", "opis", "crvena", simbolika2, Cvet.Miris.BLAG, sezone2, tp1);
 
 		Map<Long, Integer> cveceMap1 = new HashMap<>();
 		cveceMap1.put(1L, 5);
@@ -117,18 +120,32 @@ public class ModelFactory {
 		Map<Long, Integer> cveceMap3 = new HashMap<>();
 		cveceMap3.put(2L, 3);
         Map<Long, Integer> cveceMap4 = new HashMap<>();
-		cveceMap3.put(3L, 4);
+		cveceMap4.put(3L, 4);
 
-		// Proizvod p1 = new Proizvod(1L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap1, 1000.0, 0.0);
-		// Proizvod p2 = new Proizvod(2L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap2, 1200.0, 0.0);
-		// Proizvod p3 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.BUKET, cveceMap3, 950.0, 0.0);
-		// Proizvod p4 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.SAKSIJSKO_CVECE, cveceMap4, 950.0, 0.0);
+		BrojVrsta brojVrsta1 = new BrojVrsta(1L, c1, 5);
+		BrojVrsta brojVrsta2 = new BrojVrsta(2L, c1, 10);
+		BrojVrsta brojVrsta3 = new BrojVrsta(3L, c2, 3);
+		BrojVrsta brojVrsta4 = new BrojVrsta(4L, c3, 4);
+
+		Set<BrojVrsta> set1 = new HashSet<>();
+		set1.add(brojVrsta1);
+		Set<BrojVrsta> set2 = new HashSet<>();
+		set2.add(brojVrsta2);
+		Set<BrojVrsta> set3 = new HashSet<>();
+		set3.add(brojVrsta3);
+		Set<BrojVrsta> set4 = new HashSet<>();
+		set4.add(brojVrsta4);
+
+		Proizvod p1 = new Proizvod(1L, "bele ruze", "opis", TipProizvoda.BUKET, set1, 1000.0, 0.0);
+		Proizvod p2 = new Proizvod(2L, "bele ruze", "opis", TipProizvoda.BUKET, set2, 1200.0, 0.0);
+		Proizvod p3 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.BUKET, set3, 950.0, 0.0);
+		Proizvod p4 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.SAKSIJSKO_CVECE, set4, 950.0, 0.0);
 
         List<Proizvod> lista = new ArrayList<>();
-        // lista.add(p1);
-        // lista.add(p2);
-        // lista.add(p3);
-        // lista.add(p4);
+        lista.add(p1);
+        lista.add(p2);
+        lista.add(p3);
+        lista.add(p4);
 
         proizvodi.setProizvodi(lista);
         

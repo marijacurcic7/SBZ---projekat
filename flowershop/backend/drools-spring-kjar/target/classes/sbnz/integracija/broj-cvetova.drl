@@ -14,7 +14,7 @@ agenda-group "group3"
         $proizvodi: Proizvodi()
         $parni: List() from collect(Proizvod( paranBrojCvetova() && tip != TipProizvoda.SAKSIJSKO_CVECE) from $proizvodi.getProizvodi())
     then
-        modify( $proizvodi ) { setProizvodi($parni), setRed(1) }
+        modify( $proizvodi ) { setProizvodi($parni) }
         System.out.println("11");
 end
 
@@ -25,6 +25,6 @@ agenda-group "group3"
         $proizvodi: Proizvodi()
         $neparni: List() from collect(Proizvod( tip == TipProizvoda.SAKSIJSKO_CVECE || !paranBrojCvetova() ) from $proizvodi.getProizvodi())
     then
-        modify( $proizvodi ) { setProizvodi($neparni), setRed(1) }
+        modify( $proizvodi ) { setProizvodi($neparni) }
         System.out.println("12");
 end
