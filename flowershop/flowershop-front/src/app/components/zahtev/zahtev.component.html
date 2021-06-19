@@ -13,8 +13,8 @@
           <mat-form-field appearance="fill">
             <mat-label>Razlog kupovine</mat-label>
             <mat-select formControlName="razlog">
-              <mat-option *ngFor="let razlog of razlozi" [value]="razlog">
-                {{razlog}}
+              <mat-option *ngFor="let razlog of razlozi" [value]="razlog.value">
+                {{razlog.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -66,7 +66,7 @@
                         <p>Cena: {{card.cena}}rsd</p>
                         <p>Broj cvetova: {{card.brojCvetova}}</p>
                       </mat-card-content>
-                      <div><button mat-raised-button color="primary" (click)="kupi(card.id)">Kupi</button></div>
+                      <div><button mat-raised-button (click)="kupi(card.id)">Kupi</button></div>
                 </mat-card>
             </div>
       </div>

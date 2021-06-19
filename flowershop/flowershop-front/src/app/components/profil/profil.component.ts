@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Kupac } from 'src/app/model/Kupac';
@@ -12,11 +13,14 @@ import { UserService } from 'src/app/service/user.service';
 export class ProfilComponent implements OnInit {
   korisnik: Kupac;
   dataSource: MatTableDataSource<Kupovina>;
-  displayedColumns: string[] = ['naziv', 'cena'];
+  displayedColumns: string[] = ['datum', 'naziv', 'cena'];
+
 
   constructor(
     private userService: UserService
-  ) { }
+  ) { 
+    this.korisnik = new Kupac();
+  }
 
   ngOnInit(): void {
     this.userService.getUserDetails().subscribe(

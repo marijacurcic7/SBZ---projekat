@@ -10,6 +10,11 @@ import { Zahtev } from 'src/app/model/Zahtev';
 import { ProizvodService } from 'src/app/service/proizvod.service';
 import { ZahtevService } from 'src/app/service/zahtev.service';
 
+interface Razlog {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-zahtev',
   templateUrl: './zahtev.component.html',
@@ -37,15 +42,16 @@ export class ZahtevComponent implements OnInit {
   stepItems: Array<any>;
   masterForm: Array<FormGroup>;
 
-  razlozi: string[] = [
-    'venacnje',
-    'rodjendan',
-    'Dan zena',
-    'pomen',
-    'poseta',
-    'slava',
-    'dom',
-    'ostalo'
+
+  razlozi: Razlog[] = [
+    {value: 'vencanje', viewValue: 'vencanje/svadba'},
+    {value: 'rodjendan', viewValue: 'rodjendan'},
+    {value: 'Dan zena', viewValue: 'Dan zena'},
+    {value: 'pomen', viewValue: 'sahrana/pomen'},
+    {value: 'slava', viewValue: 'krstenje/slava'},
+    {value: 'poseta', viewValue: 'poseta bolesnoj osobi'},
+    {value: 'dom', viewValue: 'poseta/dom'},
+    {value: 'ostalo', viewValue: 'ostalo'},
   ];
 
   motivi: string[] = [

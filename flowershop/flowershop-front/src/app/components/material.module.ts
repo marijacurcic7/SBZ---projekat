@@ -17,9 +17,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, NativeDateModule } from '@angular/material/core';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { HomeComponent } from './home/home.component';
-import { MultiformComponent } from './multiform/multiform.component';
-import { PersonalDetailsComponent } from './personal-details/personal-details.component';
-import { AddressDetailsComponent } from './address-details/address-details.component';
 import { ZahtevComponent } from './zahtev/zahtev.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { LoginComponent } from './login/login.component';
@@ -31,7 +28,7 @@ import { ProfilComponent } from './profil/profil.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, MultiformComponent, PersonalDetailsComponent, AddressDetailsComponent, ZahtevComponent,
+  declarations: [HomeComponent, ZahtevComponent,
     LoginComponent, ToolbarComponent, ProizvodiComponent, GridComponent, ProfilComponent ],
 
   imports: [

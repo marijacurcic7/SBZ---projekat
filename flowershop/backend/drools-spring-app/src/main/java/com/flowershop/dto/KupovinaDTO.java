@@ -10,7 +10,7 @@ public class KupovinaDTO {
 
     private ProizvodDTO proizvod;
 
-    private Date datum;
+    private String datum;
 
     private double iznos;
 
@@ -19,7 +19,7 @@ public class KupovinaDTO {
     public KupovinaDTO() {
     }
 
-    public KupovinaDTO(Long id, ProizvodDTO proizvod, Date datum, double iznos) {
+    public KupovinaDTO(Long id, ProizvodDTO proizvod, String datum, double iznos) {
         this.id = id;
         this.proizvod = proizvod;
         this.datum = datum;
@@ -42,11 +42,11 @@ public class KupovinaDTO {
         this.proizvod = proizvod;
     }
 
-    public Date getDatum() {
+    public String getDatum() {
         return this.datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(String datum) {
         this.datum = datum;
     }
 

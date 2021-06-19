@@ -6,19 +6,6 @@ import com.flowershop.model.Cvet.Sezona;
 import com.flowershop.model.VrsteCveca;
 import java.util.List;
 
-// query getCveceZaVencanje()
-//     Cvet( naziv == "ruza", boja == "bela" )
-//     or Cvet( naziv == "ljiljan", boja == "bela" )
-//     or Cvet( naziv == "ljiljan", boja == "ljubicasta" )
-//     or Cvet( naziv == "kala", boja == "bela" )
-//     or Cvet( naziv == "kala", boja == "ljubicasta" )
-//     or Cvet( naziv == "kala", boja == "roze" )
-//     or Cvet( naziv == "kala", boja == "crvena" )
-//     or Cvet( naziv == "anturijum" )
-//     or Cvet( naziv == "gladiola" )
-//     or Cvet( naziv == "hortenzija" )
-// end
-
 
 rule "1"
 agenda-group "group1"
@@ -36,7 +23,6 @@ end
 rule "2"
 agenda-group "group1"
 salience 10
-// lock-on-active true
     when
         $z: Zahtev( razlogKupovine == "Dan zena", motiv == "" || motiv == null )
         $vrste: VrsteCveca()
@@ -53,7 +39,6 @@ end
 rule "2.1"
 agenda-group "group1"
 salience 9
-// lock-on-active true
     when
         $z: Zahtev( razlogKupovine == "Dan zena", motiv != "" && motiv != null, $motiv: motiv )
         $vrste: VrsteCveca()
@@ -72,7 +57,6 @@ end
 rule "3"
 agenda-group "group1"
 salience 10
-// lock-on-active true
     when
         $z: Zahtev( $motiv: motiv , razlogKupovine == "ostalo")
         $vrste: VrsteCveca()
@@ -86,7 +70,6 @@ end
 rule "4"
 agenda-group "group1"
 salience 10
-// lock-on-active true
     when
         $z: Zahtev( razlogKupovine == "poseta" )
         $vrste: VrsteCveca()

@@ -133,8 +133,8 @@ public class Proizvod {
     }
 
     public double cenaSaPopustom(double popust1) {
-        this.cena = this.cena - this.cena*popust1/100;
-        return cena;
+        double newCena = this.cena - this.cena*popust1/100;
+        return newCena;
     }
 
     

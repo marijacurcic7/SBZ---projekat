@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.flowershop.model.Admin;
 import com.flowershop.model.Kupac;
 import com.flowershop.model.Kupovina;
+import com.flowershop.model.KupovinaEvent;
 import com.flowershop.model.Proizvod;
 import com.flowershop.model.User;
 import com.flowershop.repository.AdminRepository;
@@ -23,7 +24,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class KupacService implements UserDetailsService {
 
-    private final KieContainer kieContainer;
 
     @Autowired
     KupacRepository kupacRepository;
@@ -35,9 +35,12 @@ public class KupacService implements UserDetailsService {
     public KupovinaService kupovinaService;
 
     @Autowired
-	public KupacService(KieContainer kieContainer) {
-		this.kieContainer = kieContainer;
-	}
+    public RulesService rulesService;
+
+    // @Autowired
+	// public KupacService(KieContainer kieContainer) {
+	// 	this.kieContainer = kieContainer;
+	// }
 
     public Kupac findByEmail(String email) {
 		return kupacRepository.findByEmail(email);
@@ -62,18 +65,18 @@ public class KupacService implements UserDetailsService {
         throw new UsernameNotFoundException(String.format("No user found with username '%s'.", email));
     }
 
-    public double izracunajPopust(Kupac kupac){
-        System.out.println(kupac.getUkupnaCena());
+    // public double izracunajPopust(Kupac kupac){
+    //     System.out.println(kupac.getUkupnaCena());
 
-        KieSession kieSession = kieContainer.newKieSession("test-session");
+    //     // KieSession kieSession = kieContainer.newKieSession("test-session");
 
-        kieSession.insert(kupac);
+    //     // kieSession.insert(kupac);
 
-		kieSession.getAgenda().getAgendaGroup("group5").setFocus();
-		kieSession.fireAllRules();
+	// 	// kieSession.getAgenda().getAgendaGroup("group5").setFocus();
+	// 	// kieSession.fireAllRules();
 
-        return kupac.getPopust();
-    }
+    //     return kupac.getPopust();
+    // }
 
     public void kupi(Proizvod proizvod){
         Kupac kupac = findByEmail("kupac1@gmail.com");
@@ -81,18 +84,44 @@ public class KupacService implements UserDetailsService {
         kupovina.setProizvodi(new HashMap<>());
         kupovina.getProizvodi().put(proizvod.getId(), 1);
         kupovina.setProizvod(proizvod);
-        kupovina.setDatum(new Date());
+        kupovina.setIznos(proizvod.getCena());
+        Date datum = new Date();
+        System.out.println(datum);
+        kupovina.setDatum(datum);
         kupovina.setKupac(kupac);
         double cena = proizvod.cenaSaPopustom(kupac.getPopust());
         kupovina.setIznos(cena);
         kupovinaService.save(kupovina);
 
-        // kupac.getKupljeniProizvodi().add(proizvod);
         kupac.getKupovine().add(kupovina);
         kupac.dodajNaIznos(cena);
-        double popust = izracunajPopust(kupac);
-        System.out.println("POPUST: " + popust);
+
+        rulesService.novaKupovina(kupovina, kupac);
+
         save(kupac);
+
+
+        // KupovinaEvent kupovinaEvent = new KupovinaEvent(kupac.getId(), kupovina.getIznos(), 60000L);
+        // kupac.getKupovine().add(kupovina);
+        // kupac.dodajNaIznos(cena);
+
+        // KieSession kieSession = kieContainer.newKieSession("test-session");
+
+        // System.out.println(kupovina);
+        // System.out.println(kupovina.getIznos());
+
+        // kieSession.insert(kupac);
+        // kieSession.insert(kupovinaEvent);
+
+		// kieSession.getAgenda().getAgendaGroup("group6").setFocus();
+		// kieSession.fireAllRules();
+
+        // System.out.println(kupac.getPopust());
+
+        // kupac.getKupljeniProizvodi().add(proizvod);
+
+        // double popust = izracunajPopust(kupac);
+        // System.out.println("POPUST: " + popust);
     }
 
     public Kupac getKupac() {

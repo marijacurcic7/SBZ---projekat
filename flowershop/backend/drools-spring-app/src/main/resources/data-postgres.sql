@@ -26,8 +26,13 @@ INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (4, 'ruza', 'roze', 'BLA
 INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (5, 'kala', 'crvena', 'BLAG');
 INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (6, 'kala', 'bela', 'BLAG');
 INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (7, 'kala', 'roze', 'BLAG');
-INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (8, 'narcis', 'bela', 'BLAG');
-INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (9, 'narcis', 'zuta', 'BLAG');
+INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (8, 'narcis', 'bela', 'NEMA');
+INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (9, 'narcis', 'zuta', 'NEMA');
+INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (10, 'hortenzija', 'plava', 'NEMA');
+INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (11, 'hortenzija', 'bela', 'NEMA');
+INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (12, 'perunika', 'plava', 'JAK');
+INSERT INTO public.cvet (id, naziv, boja, miris) VALUES (13, 'hrizantema', 'zuta', 'NEMA');
+
 
 INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (1, 'ZIMA');
 INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (1, 'PROLECE');
@@ -55,6 +60,18 @@ INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (7, 'LETO');
 
 INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (8, 'PROLECE');
 INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (9, 'PROLECE');
+
+INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (10, 'PROLECE');
+INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (10, 'JESEN');
+INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (11, 'PROLECE');
+INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (11, 'JESEN');
+
+INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (12, 'PROLECE');
+
+INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (13, 'JESEN');
+INSERT INTO cvet_sezone (cvet_id, sezone) VALUES (13, 'ZIMA');
+
+
 
 INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (1, 'REZANO_CVECE');
 INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (1, 'BUKET');
@@ -86,6 +103,20 @@ INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (8, 'REZANO
 INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (8, 'BUKET');
 INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (9, 'REZANO_CVECE');
 INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (9, 'BUKET');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (10, 'REZANO_CVECE');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (10, 'BUKET');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (10, 'ARANZMAN');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (10, 'SAKSIJSKO_CVECE');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (11, 'REZANO_CVECE');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (11, 'BUKET');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (11, 'ARANZMAN');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (11, 'SAKSIJSKO_CVECE');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (12, 'ARANZMAN');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (12, 'SAKSIJSKO_CVECE');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (13, 'SAKSIJSKO_CVECE');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (13, 'ARANZMAN');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (13, 'BUKET');
+INSERT INTO cvet_tipovi_proizvoda (cvet_id, tipovi_proizvoda) VALUES (13, 'VENAC');
 
 
 INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (1, 'ljubav');
@@ -121,26 +152,49 @@ INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (9, 'slava');
 INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (9, 'poseta');
 INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (9, 'dom');
 INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (9, 'prijateljstvo');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (10, 'porodica');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (10, 'dom');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (10, 'poseta');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (11, 'porodica');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (11, 'dom');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (11, 'poseta');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (11, 'vencanje');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (12, 'slava');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (12, 'dom');
+INSERT INTO cvet_simbolika (cvet_id, simbolika) VALUES (13, 'pomen');
+
 
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (1, 2, 8); -- 8 belih ruza
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (2, 1, 5);
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (3, 7, 3);
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (4, 3, 9); -- 9 zutih ruza
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (5, 1, 5); -- 5 crvenih ruza
-INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (12, 2, 8); -- 8 belih ruza
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (6, 2, 5); -- 5 belih ruza
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (7, 6, 7); -- 7 belih kali
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (8, 8, 7); -- 7 belih narcisa
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (9, 9, 7); -- 7 zutih narcisa
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (10, 2, 12); -- 12 belih ruza
 INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (11, 1, 1); -- 1 crvena ruza
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (12, 10, 1); -- 1 plava hortenzija
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (13, 11, 3); -- 3 bele hortenzije
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (14, 10, 3); -- 3 plave hortenzije
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (15, 12, 3); -- 3 plave perunike
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (16, 12, 4); -- 4 plave perunike
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (17, 6, 3); -- 3 bele kale
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (18, 6, 6); -- 6 bele kale
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (19, 13, 8); -- 8 hrizanteme
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (20, 13, 8); -- 8 hrizanteme
+INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (21, 2, 8); -- 8 belih ruza
+-- INSERT INTO broj_vrsta (id, cvet_id, broj) VALUES (21, 2, 4); -- 4 bele ruze
+
+
 
 
 
 INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (1, 'Bele ruze', 'opis', 'BUKET', 3000.0, 0.0);
 INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (2, 'Crvene ruze', 'opis', 'BUKET', 1600.0, 0.0);
 INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (3, 'Roze kale', 'opis', 'BUKET', 1600.0, 0.0);
-INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (4, 'Zute ruže', 'opis', 'REZANO_CVECE', 1500.0, 0.0);
+INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (4, 'Zute ruze', 'opis', 'REZANO_CVECE', 1500.0, 0.0);
 INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (5, 'Bele kale', 'opis', 'BUKET', 2200.0, 0.0);
 INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (6, 'Bele i crvene ruze', 'opis', 'ARANZMAN', 2500.0, 0.0);
 INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (7, 'Bele ruze', 'opis', 'VENAC', 5100.0, 0.0);
@@ -148,6 +202,13 @@ INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (8, 'Crv
 INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (9, 'Beli narcisi', 'opis', 'REZANO_CVECE', 1200.0, 0.0);
 INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (10, 'Bele ruze', 'opis', 'BUKET', 1500.0, 0.0);
 INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (11, 'Zuti narcisi', 'opis', 'REZANO_CVECE', 1200.0, 0.0);
+INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (12, 'Plava hortenzija', 'opis', 'SAKSIJSKO_CVECE', 2000.0, 0.0);
+INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (13, 'Plava hortenzija', 'opis', 'REZANO_CVECE', 2000.0, 0.0);
+INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (14, 'Bela hortenzija', 'opis', 'BUKET', 2500.0, 0.0);
+INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (15, 'Perunika', 'opis', 'SAKSIJSKO_CVECE', 2500.0, 0.0);
+INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (16, 'Bele kale i perunike', 'opis', 'ARANZMAN', 3200.0, 0.0);
+INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (17, 'Hrizanteme', 'opis', 'BUKET', 2000.0, 0.0);
+INSERT INTO public.proizvod (id, naziv, opis, tip, cena, popust) VALUES (18, 'Bele kale i hrizanteme', 'opis', 'VENAC', 5000.0, 0.0);
 
 
 INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (1, 1);
@@ -156,10 +217,19 @@ INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (3, 3);
 INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (4, 4);
 INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (5, 7);
 INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (6, 5);
-INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (6, 12);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (6, 21);
 INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (7, 10);
 INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (8, 11);
 INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (10, 6);
 INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (9, 8);
 INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (11, 9);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (12, 12);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (13, 14);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (14, 13);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (15, 15);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (16, 16);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (16, 17);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (17, 20);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (18, 18);
+INSERT INTO proizvod_cvece (proizvod_id, cvece_id) VALUES (18, 19);
 

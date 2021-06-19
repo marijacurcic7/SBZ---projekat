@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.Map;
 import javax.persistence.*;
 
+
+
 @Entity
 @Table(name = "kupovina")
-public class Kupovina {
+public class Kupovina implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,7 +90,7 @@ public class Kupovina {
     }
 
     public double getIznos() {
-        return this.iznos;
+        return this.proizvod.getCena();
     }
 
     public void setIznos(double iznos) {
@@ -113,6 +115,7 @@ public class Kupovina {
         this.kupac = kupac;
     }
 
+    
 
 
 }

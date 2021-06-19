@@ -4,7 +4,7 @@
         <!-- <span> Naslov </span>  -->
       </a>
       <button mat-button routerLink="/izbor-cveca" *ngIf="authService.getRole() === 'ROLE_USER'">Izbor cveca</button>
-      <button mat-button routerLink="/svi-proizvodi" *ngIf="authService.getRole() === 'ROLE_USER'">Svi proizvodi</button>
+      <button mat-button routerLink="/svi-proizvodi">Svi proizvodi</button>
       <button mat-button routerLink="/profil" *ngIf="authService.getRole() === 'ROLE_USER'">Profil</button>
       <span class="menu-spacer"></span>
       <div>

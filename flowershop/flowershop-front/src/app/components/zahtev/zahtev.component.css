@@ -48,11 +48,13 @@ mat-radio-group {
 }
 
 .content > mat-card {
-    width: 200px;
+    width: 220px;
+    height: 180px;
 }
   
 .proizvodCard {
-    width: 200px;
+    width: 220px;
+    height: 180px;
     margin: 10px;
     position: relative;
     overflow: auto;
@@ -62,5 +64,5 @@ mat-radio-group {
 
 button {
     float: right;
-    
+    background-color: #E9967A;
 }

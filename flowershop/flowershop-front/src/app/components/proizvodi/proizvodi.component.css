@@ -2,9 +2,9 @@
     padding: 16px;
 }
 
-.content > mat-card {
+/* .content > mat-card {
     width: 200px;
-}
+} */
 
 /* .example-card {
     max-width: 650px;
@@ -16,7 +16,8 @@
 } */
   
 mat-card {
-    width: 200px;
+    width: 220px;
+    height: 180px;
     margin: 10px;
     position: relative;
     overflow: auto;
@@ -26,8 +27,9 @@ mat-card {
     /* flex-direction: row; */
 }
   
-/*mat-card-header {
-    flex-shrink: 0;
+/* mat-card-header {
+    padding: 0px;
+    margin: 0px;
 }
     
 mat-card-content{

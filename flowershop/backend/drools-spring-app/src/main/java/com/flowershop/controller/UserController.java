@@ -1,6 +1,8 @@
 package com.flowershop.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.flowershop.dto.KupacDTO;
@@ -35,12 +37,14 @@ public class UserController {
 
     @GetMapping("/kupovine")
     public ResponseEntity<?> getKupovine(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Kupac kupac = kupacService.getKupac();
         List<KupovinaDTO> dto = new ArrayList<>();
         for(Kupovina kupovina : kupac.getKupovine()){
             ProizvodDTO proizvodDTO = new ProizvodDTO(kupovina.getProizvod().getId(), kupovina.getProizvod().getNaziv(), kupovina.getProizvod().getOpis(), kupovina.getProizvod().getTip(), 
             kupovina.getProizvod().getCena(), kupovina.getProizvod().getPopust(), kupovina.getProizvod().ukupanBrojCvetova());
-            KupovinaDTO kupovinaDTO = new KupovinaDTO(kupovina.getId(), proizvodDTO, kupovina.getDatum(), kupovina.getIznos());
+            String datum = sdf.format(kupovina.getDatum());
+            KupovinaDTO kupovinaDTO = new KupovinaDTO(kupovina.getId(), proizvodDTO, datum, kupovina.getIznos());
             dto.add(kupovinaDTO);
         }
         return new ResponseEntity<>(dto, HttpStatus.OK);
