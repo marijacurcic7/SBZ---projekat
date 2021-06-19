@@ -26,7 +26,7 @@ export class ZahtevService {
     };
     
     return this.http.post<Array<Proizvod>>(
-      `http://localhost:8080/api/zahtev1`, 
+      `http://localhost:8080/zahtevi`, 
       zahtev, httpOptions);
   }
 

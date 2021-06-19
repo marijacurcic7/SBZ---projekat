@@ -18,7 +18,8 @@ export class ProizvodiComponent implements OnInit {
 
   constructor(
     private proizvodService: ProizvodService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _snackBar2: MatSnackBar
   ) { 
     this.dataSource = new MatTableDataSource<Proizvod>();
   }
@@ -46,8 +47,13 @@ export class ProizvodiComponent implements OnInit {
       result => {
         console.log(result);
         this._snackBar.open(`Uspesno ste kupili proizvod`, 'Close', {
-          duration: 4000,
+          duration: 2000,
         });
+        if(result != 0){
+          this._snackBar2.open('Ostvarili ste popust od ' + result + '%!', 'Close', {
+            duration: 4000,
+          });
+        }
       },
       err => {
         console.log(err);

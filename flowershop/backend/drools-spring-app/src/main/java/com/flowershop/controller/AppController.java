@@ -24,46 +24,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 
 
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/zahtevi")
 @CrossOrigin(origins = "http://localhost:4200")
 public class AppController { 
-	private static Logger log = LoggerFactory.getLogger(AppController.class);
-
-	private final TestService sampleService;
-
-	@Autowired
-	public AppController(TestService sampleService) {
-		this.sampleService = sampleService;
-	}
 
 	@Autowired
 	public ZahtevService zahtevService;
 
-	@RequestMapping(value = "/zahtev", method = RequestMethod.GET)
-	public Zahtev test() {
 
-		Zahtev zahtev = new Zahtev();
-        zahtev.setMinCena(1000.0);
-        zahtev.setMaxCena(5000.0);
-		zahtev.setRazlogKupovine("pomen");
-		zahtev.setSezona(Cvet.Sezona.JESEN);
-		// zahtev.setMotiv("porodica");
-
-
-		
-
-		log.debug("Request received for: " + zahtev);
-
-		Zahtev z = sampleService.testZahtev(zahtev);
-
-		return z;
-	}
-
-	@PostMapping("/zahtev1")
+	@PostMapping()
 	public ResponseEntity<?> kreirajZahtev(@RequestBody ZahtevDTO dto) {
 		System.out.println(dto.getRazlogKupovine());
 		ZahtevMapper mapper = new ZahtevMapper();
@@ -74,7 +48,6 @@ public class AppController {
 
 		return new ResponseEntity<>(toProizvodDTOList(proizvodi), HttpStatus.OK);
 
-		
 	}
 	
 	private List<ProizvodDTO> toProizvodDTOList(List<Proizvod> proizvodi){

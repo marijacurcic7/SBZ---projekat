@@ -21,8 +21,6 @@ interface Razlog {
   styleUrls: ['./zahtev.component.css']
 })
 export class ZahtevComponent implements OnInit {
-  // @Input() formContent: any;
-  // @Output() readonly formSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   zahtevForm!: FormGroup;
   submitionError: boolean = false;
@@ -31,6 +29,7 @@ export class ZahtevComponent implements OnInit {
   dataSource: MatTableDataSource<Proizvod>;
   obs: Observable<any> | undefined;
   zahtevCard: boolean;
+  motivRequired: boolean;
 
   activeStepIndex: number;
   motiv: boolean;
@@ -67,7 +66,8 @@ export class ZahtevComponent implements OnInit {
     private router: Router,
     private zahtevService: ZahtevService,
     private proizvodService: ProizvodService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _snackBar2: MatSnackBar
   ) { 
     this.zahtevForm = this.fb.group({
       'cena': [''],
@@ -117,10 +117,13 @@ export class ZahtevComponent implements OnInit {
     if(this.zahtev.razlogKupovine == "ostalo" || this.zahtev.razlogKupovine == "rodjendan"){
       this.motiv = true;
       this.datum = true;
+      this.motivRequired = true;
+
     }
     else if(this.zahtev.razlogKupovine == "Dan zena"){
       this.motiv = true;
       this.datum = false;
+      this.motivRequired = false;
     }
     else{
       this.motiv = false;
@@ -147,7 +150,6 @@ export class ZahtevComponent implements OnInit {
       this.zahtev.datum = new Date("2021-03-08");
     }
 
-    // this.router.navigate(['/zahtev2'])
 
     console.log(this.zahtev.razlogKupovine);
 
@@ -179,6 +181,11 @@ export class ZahtevComponent implements OnInit {
         this._snackBar.open(`Uspesno ste kupili proizvod`, 'Close', {
           duration: 4000,
         });
+        if(result != 0){
+          this._snackBar2.open('Ostvarili ste popust od ' + result + '%!', 'Close', {
+            duration: 4000,
+          });
+        }
       },
       err => {
         console.log(err);

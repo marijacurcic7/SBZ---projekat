@@ -2,7 +2,7 @@
 <div>
     <mat-card *ngIf="zahtevCard">
         <form [formGroup]="zahtevForm" (ngSubmit)="next()" *ngIf="activeStepIndex == 0">
-          <mat-radio-group formControlName="cena">
+          <mat-radio-group formControlName="cena" required>
               <mat-label>Cena:</mat-label>
               <mat-radio-button value="1">do 2000</mat-radio-button>
               <mat-radio-button value="2">2000-5000</mat-radio-button>
@@ -12,7 +12,7 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Razlog kupovine</mat-label>
-            <mat-select formControlName="razlog">
+            <mat-select formControlName="razlog" required>
               <mat-option *ngFor="let razlog of razlozi" [value]="razlog.value">
                 {{razlog.viewValue}}
               </mat-option>
@@ -39,7 +39,7 @@
 
           <mat-form-field class="datum" appearance="fill" *ngIf="datum">
             <mat-label>Datum kupovine</mat-label>
-            <input matInput [matDatepicker]="datum" formControlName="datum">
+            <input matInput [matDatepicker]="datum" formControlName="datum" required >
             <mat-datepicker-toggle matSuffix [for]="datum"></mat-datepicker-toggle>
             <mat-datepicker #datum></mat-datepicker>
           </mat-form-field>

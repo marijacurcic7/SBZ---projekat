@@ -45,8 +45,7 @@ public class ProizvodController {
 
     @PostMapping("/kupi/{proizvodId}")
     public ResponseEntity<?> kupi(@PathVariable("proizvodId") Long proizvodId ){
-        System.out.println("OVDEEEEEEEE");
-        System.out.println(proizvodId);
+
         Proizvod proizvod = null;
         for(Proizvod p : proizvodService.getAll()){
             if(p.getId().equals(proizvodId)){
@@ -56,11 +55,9 @@ public class ProizvodController {
         if(proizvod == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        // User principal = (User) authentication.getPrincipal();
-        kupacService.kupi(proizvod);
-        // System.out.println(principal.getEmail());
-        return new ResponseEntity<>(HttpStatus.OK);
+        
+        double popust = kupacService.kupi(proizvod);
+        return new ResponseEntity<>(popust, HttpStatus.OK);
     }
 
     private List<ProizvodDTO> toProizvodDTOList(List<Proizvod> proizvodi){

@@ -78,7 +78,7 @@ public class KupacService implements UserDetailsService {
     //     return kupac.getPopust();
     // }
 
-    public void kupi(Proizvod proizvod){
+    public double kupi(Proizvod proizvod){
         Kupac kupac = findByEmail("kupac1@gmail.com");
         Kupovina kupovina = new Kupovina();
         kupovina.setProizvodi(new HashMap<>());
@@ -96,10 +96,11 @@ public class KupacService implements UserDetailsService {
         kupac.getKupovine().add(kupovina);
         kupac.dodajNaIznos(cena);
 
-        rulesService.novaKupovina(kupovina, kupac);
+        double noviPopust = rulesService.novaKupovina(kupovina, kupac);
 
         save(kupac);
 
+        return noviPopust;
 
         // KupovinaEvent kupovinaEvent = new KupovinaEvent(kupac.getId(), kupovina.getIznos(), 60000L);
         // kupac.getKupovine().add(kupovina);

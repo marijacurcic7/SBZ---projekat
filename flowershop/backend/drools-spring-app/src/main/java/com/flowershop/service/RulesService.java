@@ -43,9 +43,9 @@ public class RulesService {
 
     public List<Proizvod> preporuciProizvode(Zahtev zahtev, VrsteCveca cvece, Proizvodi proizvodi, TipoviProizvoda tipoviProizvoda){
 
-
 		//vrste cveca
 		this.kieSession.insert(zahtev);
+		kieSession.insert(cvece);
 		this.kieSession.getAgenda().getAgendaGroup("group1").setFocus();
 		this.kieSession.fireAllRules();
 
@@ -113,7 +113,8 @@ public class RulesService {
         return preporuceniProizvodi;
     }
 
-    public void novaKupovina(Kupovina kupovina, Kupac kupac){
+    public double novaKupovina(Kupovina kupovina, Kupac kupac){
+		double popust1 = kupac.getPopust();
         KupovinaEvent kupovinaEvent = new KupovinaEvent(kupovina.getKupac().getId(), kupovina.getIznos(), 60000L);
 
         System.out.println(kupovina);
@@ -126,5 +127,15 @@ public class RulesService {
 		this.kieSession.fireAllRules();
 
         System.out.println("Popust: " + kupac.getPopust());
+		double popust2 = kupac.getPopust();
+		if(popust1 != popust2){
+			if(popust2 == 10){
+				return 10;
+			}
+			else if (popust2 == 20){
+				return 20;
+			}
+		}
+		return 0;
     }
 }

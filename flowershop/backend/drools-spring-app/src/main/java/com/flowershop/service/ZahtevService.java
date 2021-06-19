@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import com.flowershop.model.BrojVrsta;
 import com.flowershop.model.Cvet;
 import com.flowershop.model.FilterProizvoda;
@@ -41,6 +43,9 @@ import org.springframework.stereotype.Service;
 public class ZahtevService {
     // private static Logger log = LoggerFactory.getLogger(TestService.class);
 
+	// private KieSession kieSession;
+	
+	// private final KieContainer kieContainer;
 
 	@Autowired
 	public ProizvodRepository proizvodRepository;
@@ -53,11 +58,17 @@ public class ZahtevService {
 
 	// @Autowired
 	// public ZahtevService(KieContainer kieContainer) {
-	// 	log.info("Initialising a new example session.");
 	// 	this.kieContainer = kieContainer;
+	// }
+
+	// @PostConstruct
+	// private void initializeSession() {
+	// 	this.kieSession = kieContainer.newKieSession("test-session");
 	// }
     
     public List<Proizvod> kreirajZahtev(Zahtev zahtev){
+		System.out.println(zahtev.getRazlogKupovine());
+		calculateSeason(zahtev);
 
 		List<Cvet> cveceList = cvetRepository.findAll();
 		VrsteCveca cvece = new VrsteCveca();
@@ -67,10 +78,81 @@ public class ZahtevService {
 		Proizvodi proizvodi = new Proizvodi();
 		proizvodi.setProizvodi(proizvodiList);
 
-		List<TipProizvoda> tipoviProizvoda = new ArrayList<>();
-		TipoviProizvoda tp = new TipoviProizvoda(tipoviProizvoda);
+		List<TipProizvoda> tipoviProizvodaList = new ArrayList<>();
+		TipoviProizvoda tipoviProizvoda = new TipoviProizvoda(tipoviProizvodaList);
 
-		return rulesService.preporuciProizvode(zahtev, cvece, proizvodi, tp);
+		return rulesService.preporuciProizvode(zahtev, cvece, proizvodi, tipoviProizvoda);
+
+		// KieSession kieSession = kieContainer.newKieSession("test-session");
+
+
+		// //vrste cveca
+		// this.kieSession.insert(zahtev);
+		// this.kieSession.getAgenda().getAgendaGroup("group1").setFocus();
+		// this.kieSession.fireAllRules();
+
+        // System.out.println("GROUP 1 " + cvece.getRed());
+		// for(Cvet c : cvece.getCvece()){
+		// 	System.out.println(c.getNaziv() + ", " + c.getBoja());
+		// }
+
+        // //tipovi proizvoda
+		// this.kieSession.insert(zahtev);
+		// this.kieSession.insert(cvece);
+		// this.kieSession.insert(tipoviProizvoda);
+
+		// this.kieSession.getAgenda().getAgendaGroup("group2").setFocus();
+		// this.kieSession.fireAllRules();
+
+		// System.out.println("GROUP 2");
+		// for(TipProizvoda tip : tipoviProizvoda.getTipovi()){
+		// 	System.out.println(tip.name());
+		// }
+
+
+		// this.kieSession.insert(zahtev);
+		// this.kieSession.insert(proizvodi);
+
+		// this.kieSession.getAgenda().getAgendaGroup("group3").setFocus();
+		// this.kieSession.fireAllRules();
+
+		// System.out.println("GROUP 3");
+		// for(Proizvod p: proizvodi.getProizvodi()){
+        //     System.out.println(p.getNaziv());
+        // }
+
+		// // List<Proizvod> preporuceniList = new ArrayList<>();
+		// // PreporuceniProizvodi preporuceni = new PreporuceniProizvodi();
+		// // preporuceni.setProizvodi(preporuceniList);
+
+        // this.kieSession.insert(tipoviProizvoda);
+		// this.kieSession.insert(proizvodi);
+
+		// this.kieSession.getAgenda().getAgendaGroup("group4").setFocus();
+		// this.kieSession.fireAllRules();
+
+		// System.out.println("GROUP 4");
+		// for(Proizvod p: proizvodi.getProizvodi()){
+        //     System.out.println(p.getNaziv());
+        // }
+		// System.out.println();
+
+        // List<Proizvod> preporuceniProizvodi = new ArrayList<>();
+
+		// for(Proizvod p: proizvodi.getProizvodi()){
+		// 	boolean postoji = false;
+		// 	for(BrojVrsta bv : p.getCvece()){
+		// 		if(cvece.getCvece().contains(bv.getCvet())){
+		// 			postoji = true;
+		// 		}
+		// 	}
+		// 	if(postoji){
+		// 		preporuceniProizvodi.add(p);
+		// 		System.out.println(p.getNaziv());
+		// 	}
+		// }
+
+        // return preporuceniProizvodi;
 
     }
 
