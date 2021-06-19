@@ -6,24 +6,26 @@ import com.flowershop.model.Cvet.Sezona;
 import com.flowershop.model.VrsteCveca;
 import java.util.List;
 
-query getCveceZaVencanje()
-    Cvet( naziv == "ruza", boja == "bela" )
-    or Cvet( naziv == "ljiljan", boja == "bela" )
-    or Cvet( naziv == "ljiljan", boja == "ljubicasta" )
-    or Cvet( naziv == "kala", boja == "bela" )
-    or Cvet( naziv == "kala", boja == "ljubicasta" )
-    or Cvet( naziv == "kala", boja == "roze" )
-    or Cvet( naziv == "kala", boja == "crvena" )
-    or Cvet( naziv == "anturijum" )
-    or Cvet( naziv == "gladiola" )
-    or Cvet( naziv == "hortenzija" )
-end
+// query getCveceZaVencanje()
+//     Cvet( naziv == "ruza", boja == "bela" )
+//     or Cvet( naziv == "ljiljan", boja == "bela" )
+//     or Cvet( naziv == "ljiljan", boja == "ljubicasta" )
+//     or Cvet( naziv == "kala", boja == "bela" )
+//     or Cvet( naziv == "kala", boja == "ljubicasta" )
+//     or Cvet( naziv == "kala", boja == "roze" )
+//     or Cvet( naziv == "kala", boja == "crvena" )
+//     or Cvet( naziv == "anturijum" )
+//     or Cvet( naziv == "gladiola" )
+//     or Cvet( naziv == "hortenzija" )
+// end
 
 
 rule "1"
+agenda-group "group1"
+salience 10
     when
-        $z: Zahtev( razlogKupovine == "vencanje" || razlogKupovine == "pomen" || razlogKupovine == "dom" || razlogKupovine == "slava", $razlog: razlogKupovine, motiv == null )
-        $vrste: VrsteCveca( red == 0 )
+        $z: Zahtev( razlogKupovine == "vencanje" || razlogKupovine == "pomen" || razlogKupovine == "dom" || razlogKupovine == "slava", $razlog: razlogKupovine )
+        $vrste: VrsteCveca()
         $preporuceneVrste: List() from collect(Cvet( simbolika contains $razlog ) from $vrste.getCvece())
     then
         modify( $vrste ) { setCvece($preporuceneVrste), setRed(1) }
@@ -32,23 +34,29 @@ end
 
 
 rule "2"
-    salience(100)
+agenda-group "group1"
+salience 10
+// lock-on-active true
     when
-        $z: Zahtev( razlogKupovine == "Dan zena", motiv == null )
-        $vrste: VrsteCveca( red == 0)
+        $z: Zahtev( razlogKupovine == "Dan zena", motiv == "" || motiv == null )
+        $vrste: VrsteCveca()
         $preporuceneVrste: List() from collect(
             Cvet( simbolika contains "Dan zena", sezone contains Sezona.ZIMA 
             ) from $vrste.getCvece())
     then
         modify( $vrste ) { setCvece($preporuceneVrste), setRed(2) }
     	System.out.println("2");
+
 end
 
 
 rule "2.1"
+agenda-group "group1"
+salience 9
+// lock-on-active true
     when
-        $z: Zahtev( razlogKupovine == "Dan zena", motiv != null, $motiv: motiv )
-        $vrste: VrsteCveca( red == 0 )
+        $z: Zahtev( razlogKupovine == "Dan zena", motiv != "" && motiv != null, $motiv: motiv )
+        $vrste: VrsteCveca()
         $preporuceneVrste1: List() from collect(
             Cvet( simbolika contains "Dan zena" || simbolika contains $motiv, sezone contains Sezona.ZIMA 
             ) from $vrste.getCvece())
@@ -57,13 +65,17 @@ rule "2.1"
             setCvece($preporuceneVrste1), setRed(2)
         }
     	System.out.println("2.1");
+
 end
 
 
 rule "3"
+agenda-group "group1"
+salience 10
+// lock-on-active true
     when
         $z: Zahtev( $motiv: motiv , razlogKupovine == "ostalo")
-        $vrste: VrsteCveca( red == 0 )
+        $vrste: VrsteCveca()
         $preporuceneVrste: List() from collect(Cvet( simbolika contains $motiv ) from $vrste.getCvece())
     then
         modify( $vrste ) { setCvece($preporuceneVrste), setRed(1) }
@@ -72,10 +84,12 @@ rule "3"
 end
 
 rule "4"
-    salience(100)
+agenda-group "group1"
+salience 10
+// lock-on-active true
     when
         $z: Zahtev( razlogKupovine == "poseta" )
-        $vrste: VrsteCveca( red == 0)
+        $vrste: VrsteCveca()
         $preporuceneVrste: List() from collect(
             Cvet( simbolika contains "poseta", miris == Cvet.Miris.NEMA 
             ) from $vrste.getCvece())
@@ -86,9 +100,11 @@ end
 
 
 rule "5"
+agenda-group "group1"
+salience 8
     when
         $z: Zahtev( $sezona: sezona, razlogKupovine != "Dan zena" )
-        $vrste: VrsteCveca( red == 1 )
+        $vrste: VrsteCveca()
         $preporuceneVrste: List() from collect(Cvet( sezone contains $sezona ) from $vrste.getCvece())
     then
         modify( $vrste ) { setCvece($preporuceneVrste), setRed(2) }

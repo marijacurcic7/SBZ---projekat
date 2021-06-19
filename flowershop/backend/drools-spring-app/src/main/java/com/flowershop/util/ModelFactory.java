@@ -17,15 +17,15 @@ import com.flowershop.model.Zahtev;
 public class ModelFactory {
     
     public static Kupac getKupac10(){
-        return new Kupac(1L, "kupac1", "password", null, 5000.0, 0.0);
+        return new Kupac(1L, "Ime", "Prezime", "kupac1", "password", null, null, 5000.0, 0.0);
     }
 
     public static Kupac getKupac20(){
-        return new Kupac(2L, "kupac2", "password", null, 12000.0, 0.0);
+        return new Kupac(2L, "Ime", "Prezime", "kupac2", "password", null,  null, 12000.0, 0.0);
     }
 
     public static Kupac getKupac30(){
-        return new Kupac(3L, "kupac3", "password", null, 15080.0, 0.0);
+        return new Kupac(3L, "Ime", "Prezime", "kupac3", "password", null, null, 15080.0, 0.0);
     }
 
     // public static Zahtev getZahtev(){
@@ -119,16 +119,16 @@ public class ModelFactory {
         Map<Long, Integer> cveceMap4 = new HashMap<>();
 		cveceMap3.put(3L, 4);
 
-		Proizvod p1 = new Proizvod(1L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap1, 1000.0, 0.0);
-		Proizvod p2 = new Proizvod(2L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap2, 1200.0, 0.0);
-		Proizvod p3 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.BUKET, cveceMap3, 950.0, 0.0);
-		Proizvod p4 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.SAKSIJSKO_CVECE, cveceMap4, 950.0, 0.0);
+		// Proizvod p1 = new Proizvod(1L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap1, 1000.0, 0.0);
+		// Proizvod p2 = new Proizvod(2L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap2, 1200.0, 0.0);
+		// Proizvod p3 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.BUKET, cveceMap3, 950.0, 0.0);
+		// Proizvod p4 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.SAKSIJSKO_CVECE, cveceMap4, 950.0, 0.0);
 
         List<Proizvod> lista = new ArrayList<>();
-        lista.add(p1);
-        lista.add(p2);
-        lista.add(p3);
-        lista.add(p4);
+        // lista.add(p1);
+        // lista.add(p2);
+        // lista.add(p3);
+        // lista.add(p4);
 
         proizvodi.setProizvodi(lista);
         

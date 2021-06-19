@@ -20,17 +20,20 @@ public class ProizvodDTO {
 
     private double popust; 
 
+    private int brojCvetova;
+
 
     public ProizvodDTO() {
     }
 
-    public ProizvodDTO(Long id, String naziv, String opis, TipProizvoda tip, double cena, double popust) {
+    public ProizvodDTO(Long id, String naziv, String opis, TipProizvoda tip, double cena, double popust, int brojCvetova) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
         this.tip = tip;
         this.cena = cena;
         this.popust = popust;
+        this.brojCvetova = brojCvetova;
     }
 
     public Long getId() {
@@ -80,6 +83,15 @@ public class ProizvodDTO {
 
     public void setPopust(double popust) {
         this.popust = popust;
+    }
+
+
+    public int getBrojCvetova() {
+        return this.brojCvetova;
+    }
+
+    public void setBrojCvetova(int brojCvetova) {
+        this.brojCvetova = brojCvetova;
     }
 
 

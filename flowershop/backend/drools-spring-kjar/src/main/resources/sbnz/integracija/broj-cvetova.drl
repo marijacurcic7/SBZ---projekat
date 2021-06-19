@@ -8,6 +8,7 @@ import java.util.List;
 
 
 rule "11"
+agenda-group "group3"
     when
         $z: Zahtev( razlogKupovine == "pomen" )
         $proizvodi: Proizvodi()
@@ -18,6 +19,7 @@ rule "11"
 end
 
 rule "12"
+agenda-group "group3"
     when
         $z: Zahtev( razlogKupovine != "pomen" )
         $proizvodi: Proizvodi()

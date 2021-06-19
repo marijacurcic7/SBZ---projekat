@@ -4,54 +4,54 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "platform_admin")
-public class Admin {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id")
-    private Long id;
-    
-	@Column(name = "username", unique = true, nullable = false)
-    private String username;
-
-    @Column(name = "password", nullable = false)
-    private String password;
-
+public class Admin extends User {
 
     public Admin() {
+        super();
     }
 
-
-    public Admin(Long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
+    public Admin(String firstName, String lastName, String email, String password) {
+        super(firstName, lastName, email, password);
     }
 
-
-    public Long getId() {
-        return this.id;
+    public Admin(Long id, String firstName, String lastName, String email, String password) {
+        super(id, firstName, lastName, email, password);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", firstName='" + getFirstName() + "'" + ", lastName='" + getLastName()
+                + "'" + ", email='" + getEmail() + "'" + ", password='" + getPassword() + "'" + "}";
     }
 
-
+    @Override
     public String getUsername() {
-        return this.username;
+
+        return this.getEmail();
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    @Override
+    public boolean isAccountNonExpired() {
+
+        return true;
     }
 
-    public String getPassword() {
-        return this.password;
+    @Override
+    public boolean isAccountNonLocked() {
+
+        return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public boolean isCredentialsNonExpired() {
+
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+
+        return true;
     }
 
 }

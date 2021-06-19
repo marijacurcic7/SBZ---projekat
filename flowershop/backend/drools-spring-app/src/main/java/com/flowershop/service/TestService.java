@@ -78,13 +78,13 @@ public class TestService {
 		cveceMap2.put(1L, 10);
 		Map<Long, Integer> cveceMap3 = new HashMap<>();
 		cveceMap3.put(2L, 3);
-		Proizvod p1 = new Proizvod(1L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap1, 1000.0, 0.0);
-		Proizvod p2 = new Proizvod(2L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap2, 1200.0, 0.0);
-		Proizvod p3 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.BUKET, cveceMap3, 950.0, 0.0);
+		// Proizvod p1 = new Proizvod(1L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap1, 1000.0, 0.0);
+		// Proizvod p2 = new Proizvod(2L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap2, 1200.0, 0.0);
+		// Proizvod p3 = new Proizvod(1L, "roze kale", "opis", TipProizvoda.BUKET, cveceMap3, 950.0, 0.0);
 		List<Proizvod> proizvodi = new ArrayList<>();
-		proizvodi.add(p1);
-		proizvodi.add(p2);
-		proizvodi.add(p3);
+		// proizvodi.add(p1);
+		// proizvodi.add(p2);
+		// proizvodi.add(p3);
 
 
 		Proizvodi proizvodiclass = new Proizvodi(proizvodi, 0);
@@ -98,7 +98,7 @@ public class TestService {
 
 		Kupac k = new Kupac();
 		k.setUkupnaCena(10000.0);
-		k.setUsername("kupac1");
+		k.setEmail("kupac1");
 		kieSession.insert(k);
 
 		

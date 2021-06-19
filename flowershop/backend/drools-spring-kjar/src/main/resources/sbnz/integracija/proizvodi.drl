@@ -3,16 +3,47 @@ package rules
 import com.flowershop.model.Zahtev;
 import com.flowershop.model.Cvet;
 import com.flowershop.model.Proizvodi;
+import com.flowershop.model.PreporuceniProizvodi;
 import com.flowershop.model.VrsteCveca;
+import com.flowershop.model.TipoviProizvoda;
 
 
 // rule "20"
+// agenda-group "group4"
+// lock-on-active true
 //     when
-//         $z: Zahtev( $tip: tipProizvoda )
-//         $vrste: VrsteCveca( red == 2 )
-//         $proizvodi: Proizvodi( red == 1 )
-//         $preporuceniProizvodi: List() from collect(Proizvod( simbolika contains $razlog ) from $vrste.getCvece())
+//         $vrste: VrsteCveca()
+//         $cvet: Cvet() from $vrste.getCvece()
+//         $proizvodi: Proizvodi()
+//         $preporuceniProizvodi: PreporuceniProizvodi()
+//         $preporuceni: List() from collect(Proizvod( cvece contains $cvet ) from $proizvodi.getProizvodi())
 //     then
-//         modify( $vrste ) { setCvece($preporuceneVrste), setRed(1) }
-//         System.out.println("1");
+//         // modify( $preporuceniProizvodi ) { getProizvodi().addToList($preporuceni) }
+//         $preporuceniProizvodi.addToList($preporuceni);
+//         update($preporuceniProizvodi);
+//         System.out.println("20");
 // end
+
+rule "21"
+agenda-group "group4"
+salience 10
+    when
+        $tipovi: TipoviProizvoda()
+        $proizvodi: Proizvodi()
+        $preporuceni: List() from collect(Proizvod( $tipovi.getTipovi() contains tip ) from $proizvodi.getProizvodi())
+    then
+        modify( $proizvodi ) { setProizvodi($preporuceni) }
+        System.out.println("21");
+end
+
+rule "22"
+agenda-group "group4"
+salience 9
+    when
+        $zahtev: Zahtev()
+        $proizvodi: Proizvodi()
+        $preporuceni: List() from collect(Proizvod( cena >= $zahtev.getMinCena() && cena <= $zahtev.getMaxCena() ) from $proizvodi.getProizvodi())
+    then
+        modify( $proizvodi ) { setProizvodi($preporuceni) }
+        System.out.println("22");
+end

@@ -11,22 +11,23 @@ import java.util.List;
 
 
 rule "8"
-lock-on-active true
+agenda-group "group2"
+salience 10
     when
         $z: Zahtev( razlogKupovine == "pomen", maxCena >= 5000.0 )
         $tp: TipoviProizvoda()
-        
     then
         modify( $tp ) { getTipovi().add(TipProizvoda.VENAC) }
         System.out.println("8");
 end
 
 rule "9"
-lock-on-active true
+agenda-group "group2"
+salience 10
     when
         $z: Zahtev( razlogKupovine != "pomen" )
         $tp: TipoviProizvoda()
-        $vrste: VrsteCveca( red == 2 )
+        $vrste: VrsteCveca()
         $list: List( size > 0 ) from collect(Cvet( tipoviProizvoda contains TipProizvoda.SAKSIJSKO_CVECE ) from $vrste.getCvece())
     then
         modify( $tp ) { getTipovi().add(TipProizvoda.SAKSIJSKO_CVECE) }
@@ -35,11 +36,12 @@ end
 
 
 rule "10"
-lock-on-active true
+agenda-group "group2"
+salience 9
     when
         $z: Zahtev()
         $tp: TipoviProizvoda()
-        $vrste: VrsteCveca( red == 2 )
+        $vrste: VrsteCveca()
         $list: List( size > 0 ) from collect(Cvet( tipoviProizvoda contains TipProizvoda.BUKET ) from $vrste.getCvece())
     then
         modify( $tp ) { getTipovi().add(TipProizvoda.BUKET) }
@@ -47,11 +49,12 @@ lock-on-active true
 end
 
 rule "10.5"
-lock-on-active true
+agenda-group "group2"
+salience 9
     when
         $z: Zahtev()
         $tp: TipoviProizvoda()
-        $vrste: VrsteCveca( red == 2 )
+        $vrste: VrsteCveca()
         $list: List( size > 0 ) from collect(Cvet( tipoviProizvoda contains TipProizvoda.ARANZMAN ) from $vrste.getCvece())
     then
         modify( $tp ) { getTipovi().add(TipProizvoda.ARANZMAN) }

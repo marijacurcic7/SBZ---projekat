@@ -23,9 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 
 @RestController
+@RequestMapping(value = "/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AppController { 
 	private static Logger log = LoggerFactory.getLogger(AppController.class);
 
@@ -60,10 +64,12 @@ public class AppController {
 	}
 
 	@PostMapping("/zahtev1")
-	public ResponseEntity<List<ProizvodDTO>> kreirajZahtev(@RequestBody ZahtevDTO dto) {
+	public ResponseEntity<?> kreirajZahtev(@RequestBody ZahtevDTO dto) {
+		System.out.println(dto.getRazlogKupovine());
 		ZahtevMapper mapper = new ZahtevMapper();
 		System.out.println("Kreiraj zahtev");
 		Zahtev zahtev = mapper.toEntity(dto);
+		zahtevService.calculateSeason(zahtev);
 		List<Proizvod> proizvodi = zahtevService.kreirajZahtev(zahtev);
 
 		return new ResponseEntity<>(toProizvodDTOList(proizvodi), HttpStatus.OK);
@@ -74,7 +80,7 @@ public class AppController {
 	private List<ProizvodDTO> toProizvodDTOList(List<Proizvod> proizvodi){
 		List<ProizvodDTO> proizvodDTOs = new ArrayList<>();
 		for(Proizvod p : proizvodi){
-			ProizvodDTO dto = new ProizvodDTO(p.getId(), p.getNaziv(), p.getOpis(), p.getTip(), p.getCena(), p.getPopust());
+			ProizvodDTO dto = new ProizvodDTO(p.getId(), p.getNaziv(), p.getOpis(), p.getTip(), p.getCena(), p.getPopust(), p.ukupanBrojCvetova());
 			proizvodDTOs.add(dto);
 		}
 		return proizvodDTOs;

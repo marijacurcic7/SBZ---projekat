@@ -1,0 +1,75 @@
+
+<div>
+    <mat-card *ngIf="zahtevCard">
+        <form [formGroup]="zahtevForm" (ngSubmit)="next()" *ngIf="activeStepIndex == 0">
+          <mat-radio-group formControlName="cena">
+              <mat-label>Cena:</mat-label>
+              <mat-radio-button value="1">do 2000</mat-radio-button>
+              <mat-radio-button value="2">2000-5000</mat-radio-button>
+              <mat-radio-button value="3">5000-10000</mat-radio-button>
+              <mat-radio-button value="4">preko 10000</mat-radio-button>
+          </mat-radio-group>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Razlog kupovine</mat-label>
+            <mat-select formControlName="razlog">
+              <mat-option *ngFor="let razlog of razlozi" [value]="razlog">
+                {{razlog}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-error *ngIf=submitionError style="margin-bottom: 10px;">
+              Popunite sva polja!
+          </mat-error>
+          <div class="button-div">
+            <button mat-raised-button class="button-next">Sledece</button>
+          </div>
+
+        </form>
+        <form [formGroup]="zahtevForm" *ngIf="activeStepIndex == 1">
+          <mat-form-field appearance="fill" *ngIf="motiv">
+            <mat-label>Motiv</mat-label>
+            <mat-select formControlName="motiv">
+              <mat-option *ngFor="let motiv of motivi" [value]="motiv">
+                {{motiv}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="datum" appearance="fill" *ngIf="datum">
+            <mat-label>Datum kupovine</mat-label>
+            <input matInput [matDatepicker]="datum" formControlName="datum">
+            <mat-datepicker-toggle matSuffix [for]="datum"></mat-datepicker-toggle>
+            <mat-datepicker #datum></mat-datepicker>
+          </mat-form-field>
+
+          <mat-error *ngIf=submitionError style="margin-bottom: 10px;">
+            Popunite sva polja!
+          </mat-error>
+          <div class="button-div">
+            <button mat-raised-button (click)="prev()" class="button-prev">Prethodno</button>
+            <button mat-raised-button (click)="onSubmit()" class="button-next">Sledece</button>
+          </div>
+        </form>        
+    </mat-card>
+
+    <div class="content" *ngIf="activeStepIndex == 2">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div fxFlex="25%" *ngFor="let card of obs | async" class="card-item">
+                <mat-card class="proizvodCard mat-elevation-z4" name="proizvodCard">
+                    <mat-card-header>
+                        <mat-card-title name="title">{{card.naziv}}</mat-card-title>
+                        <mat-card-subtitle>{{card.tip}}</mat-card-subtitle>
+                      </mat-card-header>
+                      <mat-card-content >
+                        <p>Cena: {{card.cena}}rsd</p>
+                        <p>Broj cvetova: {{card.brojCvetova}}</p>
+                      </mat-card-content>
+                      <div><button mat-raised-button color="primary" (click)="kupi(card.id)">Kupi</button></div>
+                </mat-card>
+            </div>
+      </div>
+    </div>
+</div>
+

@@ -1,6 +1,8 @@
 package com.flowershop.model;
 
 import java.util.Map;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,12 +23,15 @@ public class Proizvod {
     @Enumerated(EnumType.STRING)
     private TipProizvoda tip;
 
-    @ElementCollection
-    @CollectionTable(name = "cvece_broj_mapping", 
-      joinColumns = {@JoinColumn(name = "cvet", referencedColumnName = "id")})
-    @MapKeyColumn(name = "cvet_id")
-    @Column(name = "broj")
-    private Map<Long, Integer> cvece;
+    // @ElementCollection
+    // @CollectionTable(name = "cvece_broj_mapping", 
+    //   joinColumns = {@JoinColumn(name = "cvet", referencedColumnName = "id")})
+    // @MapKeyColumn(name = "cvet_id")
+    // @Column(name = "broj")
+    // private Map<Long, Integer> cvece;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<BrojVrsta> cvece;
 
     @Column(name = "cena", nullable = false)
     private double cena;
@@ -38,7 +43,7 @@ public class Proizvod {
     public Proizvod() {
     }
 
-    public Proizvod(Long id, String naziv, String opis, TipProizvoda tip, Map<Long,Integer> cvece, double cena, double popust) {
+    public Proizvod(Long id, String naziv, String opis, TipProizvoda tip, Set<BrojVrsta> cvece, double cena, double popust) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
@@ -82,11 +87,11 @@ public class Proizvod {
         this.tip = tip;
     }
 
-    public Map<Long,Integer> getCvece() {
+    public Set<BrojVrsta> getCvece() {
         return this.cvece;
     }
 
-    public void setCvece(Map<Long,Integer> cvece) {
+    public void setCvece(Set<BrojVrsta> cvece) {
         this.cvece = cvece;
     }
 
@@ -110,21 +115,26 @@ public class Proizvod {
 
     public int ukupanBrojCvetova(){
         int i = 0;
-        for(int broj : this.cvece.values()){
-            i += broj;
+        for(BrojVrsta bv : this.cvece){
+            i += bv.getBtoj();
         }
         return i;
     }
 
     public boolean paranBrojCvetova(){
         int i = 0;
-        for(int broj : this.cvece.values()){
-            i += broj;
+        for(BrojVrsta bv : this.cvece){
+            i += bv.getBtoj();
         }
         if(i%2 == 0) {
             return true;
         }
         return false;
+    }
+
+    public double cenaSaPopustom(double popust1) {
+        this.cena = this.cena - this.cena*popust1/100;
+        return cena;
     }
 
     

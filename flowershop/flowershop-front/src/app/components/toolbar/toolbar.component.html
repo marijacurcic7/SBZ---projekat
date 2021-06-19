@@ -1,0 +1,18 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+      <a href="/"> 
+        <!-- <span> Naslov </span>  -->
+      </a>
+      <button mat-button routerLink="/izbor-cveca" *ngIf="authService.getRole() === 'ROLE_USER'">Izbor cveca</button>
+      <button mat-button routerLink="/svi-proizvodi" *ngIf="authService.getRole() === 'ROLE_USER'">Svi proizvodi</button>
+      <button mat-button routerLink="/profil" *ngIf="authService.getRole() === 'ROLE_USER'">Profil</button>
+      <span class="menu-spacer"></span>
+      <div>
+        <button mat-button *ngIf="!authService.isLoggedIn()" routerLink="/login">
+          <mat-icon>login</mat-icon>
+          Prijava
+        </button>
+        <button mat-button (click)="logout()" *ngIf="authService.isLoggedIn()" id='signOutButton'><mat-icon>login</mat-icon>Odjavi se</button>
+      </div>
+    </mat-toolbar-row>
+</mat-toolbar>

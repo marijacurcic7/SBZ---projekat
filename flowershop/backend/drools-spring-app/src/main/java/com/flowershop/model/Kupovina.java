@@ -1,5 +1,6 @@
 package com.flowershop.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 import javax.persistence.*;
@@ -30,6 +31,9 @@ public class Kupovina {
     @Column(name = "broj")
     private Map<Long, Integer> proizvodi;
 
+    @ManyToOne
+    private Proizvod proizvod;
+
     @Column(name="datum", nullable = false)
     private Date datum;
 
@@ -46,6 +50,24 @@ public class Kupovina {
         this.proizvodi = proizvodi;
         this.datum = datum;
         this.iznos = iznos;
+    }
+
+    public Kupovina(Long id, Kupac kupac, Proizvod proizvod, Date datum, double iznos) {
+        this.id = id;
+        this.kupac = kupac;
+        this.proizvod = proizvod;
+        this.datum = datum;
+        this.iznos = iznos;
+    }
+
+
+
+    public Proizvod getProizvod() {
+        return this.proizvod;
+    }
+
+    public void setProizvod(Proizvod proizvod) {
+        this.proizvod = proizvod;
     }
 
 

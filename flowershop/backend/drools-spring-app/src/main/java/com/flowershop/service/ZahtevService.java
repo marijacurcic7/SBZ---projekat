@@ -2,16 +2,22 @@ package com.flowershop.service;
 
 import com.flowershop.dto.ZahtevDTO;
 import com.flowershop.model.Zahtev;
+import com.flowershop.model.Cvet.Sezona;
+import com.flowershop.repository.CvetRepository;
+import com.flowershop.repository.ProizvodRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.flowershop.model.BrojVrsta;
 import com.flowershop.model.Cvet;
 import com.flowershop.model.FilterProizvoda;
 import com.flowershop.model.Kupac;
+import com.flowershop.model.PreporuceniProizvodi;
 import com.flowershop.model.Proizvod;
 import com.flowershop.model.Proizvodi;
 import com.flowershop.model.TipProizvoda;
@@ -19,6 +25,7 @@ import com.flowershop.model.TipoviProizvoda;
 import com.flowershop.model.VrsteCveca;
 import com.flowershop.model.Zahtev;
 
+import org.apache.commons.collections4.functors.FalsePredicate;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.QueryResults;
@@ -37,25 +44,93 @@ public class ZahtevService {
 	private final KieContainer kieContainer;
 
 	@Autowired
+	public ProizvodRepository proizvodRepository;
+
+	@Autowired
+	public CvetRepository cvetRepository;
+
+	@Autowired
 	public ZahtevService(KieContainer kieContainer) {
 		log.info("Initialising a new example session.");
 		this.kieContainer = kieContainer;
 	}
     
     public List<Proizvod> kreirajZahtev(Zahtev zahtev){
+		System.out.println("ZAHTEV: " + zahtev.getRazlogKupovine());
 
-        VrsteCveca cvece = getCvece();
-        Proizvodi proizvodi = getProizvodi();
+        // VrsteCveca cvece = getCvece();
+		List<Cvet> cveceList = cvetRepository.findAll();
+		VrsteCveca cvece = new VrsteCveca();
+		cvece.setCvece(cveceList);
+		
+        // Proizvodi proizvodi = getProizvodi();
+		List<Proizvod> proizvodiList = proizvodRepository.findAll();
+		Proizvodi proizvodi = new Proizvodi();
+		proizvodi.setProizvodi(proizvodiList);
 
 		List<TipProizvoda> tipoviProizvoda = new ArrayList<>();
 		tipoviProizvoda.add(TipProizvoda.REZANO_CVECE);
 		TipoviProizvoda tp = new TipoviProizvoda(tipoviProizvoda);
 
 		KieSession kieSession = kieContainer.newKieSession("test-session");
+
+		//vrste cveca
+		kieSession.insert(zahtev);
+		kieSession.insert(cvece);
+
+		kieSession.getAgenda().getAgendaGroup("group1").setFocus();
+		kieSession.fireAllRules();
+
+		// kieSession.dispose();
+
+
+		System.out.println("GROUP 1 " + cvece.getRed());
+		for(Cvet c : cvece.getCvece()){
+			System.out.println(c.getNaziv() + ", " + c.getBoja());
+		}
+
+		//tipovi proizvoda
 		kieSession.insert(zahtev);
 		kieSession.insert(cvece);
 		kieSession.insert(tp);
-        kieSession.insert(proizvodi);
+
+		kieSession.getAgenda().getAgendaGroup("group2").setFocus();
+		kieSession.fireAllRules();
+
+		System.out.println("GROUP 2");
+		for(TipProizvoda tip : tp.getTipovi()){
+			System.out.println(tip.name());
+		}
+
+
+		kieSession.insert(zahtev);
+		kieSession.insert(proizvodi);
+
+		kieSession.getAgenda().getAgendaGroup("group3").setFocus();
+		kieSession.fireAllRules();
+
+		System.out.println("GROUP 3");
+		for(Proizvod p: proizvodi.getProizvodi()){
+            System.out.println(p.getNaziv());
+        }
+
+
+		List<Proizvod> preporuceniList = new ArrayList<>();
+		PreporuceniProizvodi preporuceni = new PreporuceniProizvodi();
+		preporuceni.setProizvodi(preporuceniList);
+		// kieSession.insert(cvece);
+		kieSession.insert(tp);
+		kieSession.insert(proizvodi);
+		// kieSession.insert(preporuceni);
+
+		kieSession.getAgenda().getAgendaGroup("group4").setFocus();
+		kieSession.fireAllRules();
+
+		System.out.println("GROUP 4");
+		for(Proizvod p: proizvodi.getProizvodi()){
+            System.out.println(p.getNaziv());
+        }
+		System.out.println();
 
 		// Kupac k = new Kupac();
 		// k.setUkupnaCena(10000.0);
@@ -65,7 +140,7 @@ public class ZahtevService {
 		// FilterProizvoda fp = new FilterProizvoda();
 		// kieSession.insert(fp);
 
-		int i = kieSession.fireAllRules();
+		// int i = kieSession.fireAllRules();
 		// System.out.println(i);
 
 		// QueryResults results = kieSession.getQueryResults( "proizvodiPoCeni", new Object[] {  0.0, 1000.0 }  );
@@ -76,25 +151,20 @@ public class ZahtevService {
 		// 	System.out.println( proiz.getNaziv() + "\n" );
 		// }
 
-		kieSession.dispose();
 
-		for(Cvet c : cvece.getCvece()){
-			System.out.println(c.getNaziv() + ", " + c.getBoja());
-		}
-		for(TipProizvoda tip : tp.getTipovi()){
-			System.out.println(tip.name());
-		}
-        for(Proizvod p: proizvodi.getProizvodi()){
-            System.out.println(p.getNaziv());
-        }
+		
+
+        // for(Proizvod p: proizvodi.getProizvodi()){
+        //     System.out.println(p.getNaziv());
+        // }
 
 		List<Proizvod> preporuceniProizvodi = new ArrayList<>();
 
 		for(Proizvod p: proizvodi.getProizvodi()){
-			boolean postoji = true;
-			for(Long cvet : p.getCvece().keySet()){
-				if(getCvetById(cvet, cvece) == null){
-					postoji = false;
+			boolean postoji = false;
+			for(BrojVrsta bv : p.getCvece()){
+				if(cvece.getCvece().contains(bv.getCvet())){
+					postoji = true;
 				}
 			}
 			if(postoji){
@@ -207,19 +277,19 @@ public class ZahtevService {
     }
 
     private Proizvodi getProizvodi() {
-        Map<Long, Integer> cveceMap1 = new HashMap<>();
-		cveceMap1.put(1L, 5);
-		Map<Long, Integer> cveceMap2 = new HashMap<>();
-		cveceMap2.put(2L, 10);
-		Map<Long, Integer> cveceMap3 = new HashMap<>();
-		cveceMap3.put(3L, 3);
-		Proizvod p1 = new Proizvod(1L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap1, 1000.0, 0.0);
-		Proizvod p2 = new Proizvod(2L, "crvene ruze", "opis", TipProizvoda.BUKET, cveceMap2, 1800.0, 0.0);
-		Proizvod p3 = new Proizvod(3L, "roze kale", "opis", TipProizvoda.BUKET, cveceMap3, 950.0, 0.0);
+        // Map<Long, Integer> cveceMap1 = new HashMap<>();
+		// cveceMap1.put(1L, 5);
+		// Map<Long, Integer> cveceMap2 = new HashMap<>();
+		// cveceMap2.put(2L, 10);
+		// Map<Long, Integer> cveceMap3 = new HashMap<>();
+		// cveceMap3.put(3L, 3);
+		// Proizvod p1 = new Proizvod(1L, "bele ruze", "opis", TipProizvoda.BUKET, cveceMap1, 1000.0, 0.0);
+		// Proizvod p2 = new Proizvod(2L, "crvene ruze", "opis", TipProizvoda.BUKET, cveceMap2, 1800.0, 0.0);
+		// Proizvod p3 = new Proizvod(3L, "roze kale", "opis", TipProizvoda.BUKET, cveceMap3, 950.0, 0.0);
 		List<Proizvod> proizvodi = new ArrayList<>();
-		proizvodi.add(p1);
-		proizvodi.add(p2);
-		proizvodi.add(p3);
+		// proizvodi.add(p1);
+		// proizvodi.add(p2);
+		// proizvodi.add(p3);
 
         Proizvodi proizvodiclass = new Proizvodi(proizvodi, 0);
 
@@ -234,4 +304,62 @@ public class ZahtevService {
 		}
 		return null;
 	}
+
+    public void calculateSeason(Zahtev zahtev) {
+		Date datum = zahtev.getDatum();
+		System.out.println(datum);
+		Sezona sezona = null;
+		// Date prolece = new Date();
+
+		if(datum.getMonth() < 2){
+			sezona = Sezona.ZIMA;
+		}
+		else if(datum.getMonth() == 2){
+			if(datum.getDate() >= 21){
+				sezona = Sezona.PROLECE;
+			}
+			else{
+				sezona = Sezona.ZIMA;
+			}
+		}
+		else if(datum.getMonth() > 2 && datum.getMonth() < 5){
+			sezona = Sezona.PROLECE;
+		}
+		else if(datum.getMonth() == 5){
+			if(datum.getDate() >= 21){
+				sezona = Sezona.LETO;
+			}
+			else{
+				sezona = Sezona.PROLECE;
+			}
+		}
+		else if(datum.getMonth() > 5 && datum.getMonth() < 8){
+			sezona = Sezona.LETO;
+		}
+		else if(datum.getMonth() == 8){
+			if(datum.getDate() >= 23){
+				sezona = Sezona.JESEN;
+			}
+			else{
+				sezona = Sezona.LETO;
+			}
+		}
+		else if(datum.getMonth() > 8 && datum.getMonth() < 11){
+			sezona = Sezona.JESEN;
+		}
+		else if(datum.getMonth() == 11){
+			if(datum.getDate() >= 22){
+				sezona = Sezona.ZIMA;
+			}
+			else{
+				sezona = Sezona.JESEN;
+			}
+		}
+
+		System.out.println(sezona);
+		zahtev.setSezona(sezona);
+
+
+
+    }
 }
